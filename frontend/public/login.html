@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingia - Raudhwat Al-Atfal</title>
+    
+    <!-- Kipande cha Auto-Login kimewekwa hapa hapa kwenye head -->
+    <script>
+        window.onload = function() {
+            const savedUser = localStorage.getItem("raudhwat_user");
+            if (savedUser) {
+                // Mtumiaji yupo tayari, mpeleke moja kwa moja kwenye dashboard bila kuomba neno la siri
+                window.location.href = "dashboard.html";
+            }
+        };
+    </script>
+
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
+        .card h2 { text-align: center; margin-bottom: 20px; color: #0f172a; font-size: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; color: #475569; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; outline: none; background: #fff; }
+        .btn-submit { width: 100%; padding: 10px; background-color: #0284c7; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 15px; }
+        .btn-submit:hover { background-color: #0369a1; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>🔐 Ingia kwenye Mfumo</h2>
+    <form id="loginForm">
+        <div class="form-group">
+            <label>Barua Pepe au Simu</label>
+            <input type="text" id="identifier" placeholder="email@domain.com au 07xxxxxxxx" required>
+        </div>
+        <div class="form-group">
+            <label>Neno la Siri (Password)</label>
+            <input type="password" id="password" placeholder="******" required>
+        </div>
+        <button type="submit" class="btn-submit">Ingia Sasa</button>
+    </form>
+</div>
+
+<script>
+    // Sehemu ya kusafirisha data za kuingia kwenda backend
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const identifier = document.getElementById("identifier").value;
+        const password = document.getElementById("password").value;
+
+        try {
+            const res = await fetch("http://localhost:5000/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ identifier, password })
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.token) {
+                // Hifadhi taarifa ili asije kuombwa password tena siku nyingine
+                localStorage.setItem("raudhwat_user", JSON.stringify(data.user));
+                localStorage.setItem("userToken", data.token);
+
+                window.location.href = "dashboard.html";
+            } else {
+                alert("❌ " + (data.message || "Imeshindwa kuingia!"));
+            }
+        } catch (err) {
+            alert("❌ Imeshindwa kuunganisha na Server!");
+        }
+    });
+</script>
+
+</body>
+</html>

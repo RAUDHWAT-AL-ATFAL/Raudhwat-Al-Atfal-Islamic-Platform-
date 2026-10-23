@@ -4,6 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 function Navbar({ user, onLogout }) {
   const navigate = useNavigate();
 
+  // Hatua ya kuangalia kama mtumiaji ni miongoni mwa viongozi wakuu 3
+  const isLeader = user && ['KATIBU', 'MWEKAHAZINA', 'MWENYEKITI'].includes(user.role);
+
   return (
     <nav style={{
       backgroundColor: "#064e3b",
@@ -49,6 +52,13 @@ function Navbar({ user, onLogout }) {
         {user && (user.role === "donor" || user.role === "admin") && (
           <Link to="/donor-dashboard" style={{ color: "#34d399", textDecoration: "none", backgroundColor: "rgba(52, 211, 153, 0.2)", padding: "4px 10px", borderRadius: "6px" }}>
             💚 Donor Dashboard
+          </Link>
+        )}
+
+        {/* DASHBOARD YA VIONGOZI 3 (KATIBU, MWEKAHAZINA, MWENYEKITI TU) */}
+        {isLeader && (
+          <Link to="/dashboard-viongozi.html" style={{ color: "#ffd700", textDecoration: "none", backgroundColor: "rgba(255, 215, 0, 0.2)", padding: "4px 10px", borderRadius: "6px", fontWeight: "bold" }}>
+            ⚖️ Dashboard ya Viongozi
           </Link>
         )}
       </div>

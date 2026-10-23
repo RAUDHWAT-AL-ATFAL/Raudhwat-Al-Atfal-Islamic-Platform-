@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raudhwat Al-Atfal | Dashboard ya Viongozi</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary-color: #0b6623;
+            --accent-color: #ffd700;
+            --text-color: #333333;
+            --border-color: #cbd5e1;
+        }
+
+        body.emerald { --primary-color: #0b6623; --accent-color: #ffd700; --bg-main: #f4f7f6; --card-bg: #ffffff; --text-color: #333333; --border-color: #cbd5e1; }
+        body.royal { --primary-color: #1e3d59; --accent-color: #ff6e40; --bg-main: #e8f1f5; --card-bg: #ffffff; --text-color: #222222; --border-color: #b0c4de; }
+        body.sunset { --primary-color: #d35400; --accent-color: #f1c40f; --bg-main: #fdf5e6; --card-bg: #ffffff; --text-color: #2c3e50; --border-color: #f39c12; }
+        body.slate { --primary-color: #2c3e50; --accent-color: #1abc9c; --bg-main: #1a1a1a; --card-bg: #2d3748; --text-color: #f4f7f6; --border-color: #4a5568; }
+        body.ruby { --primary-color: #8b0000; --accent-color: #ffd700; --bg-main: #fff0f0; --card-bg: #ffffff; --text-color: #330000; --border-color: #d98880; }
+
+        * { box-sizing: border-box; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; }
+        
+        body { 
+            background-color: var(--bg-main); 
+            color: var(--text-color); 
+            padding: 0; 
+            margin: 0;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .marquee-container {
+            background: linear-gradient(135deg, var(--primary-color), #1e3d2f);
+            color: var(--accent-color);
+            padding: 12px 0;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .container { max-width: 1050px; margin: 20px auto; padding: 20px; }
+
+        /* Theme Switcher Bar ya Juu */
+        .top-bar { 
+            background: var(--primary-color); 
+            color: white; 
+            padding: 18px 24px; 
+            border-radius: 12px; 
+            margin-bottom: 25px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            transition: background 0.3s ease;
+        }
+        
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .top-bar select { 
+            padding: 10px 14px; 
+            border-radius: 8px; 
+            border: none; 
+            font-weight: bold; 
+            background-color: #ffffff;
+            color: #0f172a;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Kitufe maalum cha Logout */
+        .btn-logout {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn-logout:hover {
+            background-color: #b91c1c;
+            transform: translateY(-1px);
+        }
+
+        /* Card Container */
+        .card { 
+            background: var(--card-bg); 
+            padding: 30px; 
+            border-radius: 14px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+            margin-bottom: 25px; 
+            transition: background 0.3s ease;
+        }
+        
+        .card h3 { 
+            margin-bottom: 20px; 
+            color: var(--primary-color); 
+            border-bottom: 2px solid rgba(0,0,0,0.06); 
+            padding-bottom: 12px; 
+            font-size: 20px; 
+            font-weight: 700;
+        }
+
+        /* Form Grouping */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 15px; color: var(--text-color); }
+        .form-group input, .form-group select, .form-group textarea { 
+            width: 100%; 
+            padding: 14px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            font-size: 15px;
+            outline: none;
+            background: transparent;
+            color: inherit;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(11, 102, 35, 0.15);
+        }
+
+        /* Buttons */
+        .btn { padding: 12px 22px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 15px; transition: 0.2s ease; font-family: 'Poppins', sans-serif; }
+        .btn-primary { background-color: var(--primary-color); color: white; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-success { background-color: #16a34a; color: white; padding: 8px 14px; font-size: 13px; }
+        .btn-success:hover { background-color: #15803d; }
+        .btn-danger { background-color: #dc2626; color: white; padding: 8px 14px; font-size: 13px; margin-left: 5px; }
+        .btn-danger:hover { background-color: #b91c1c; }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        table th, table td { padding: 14px; text-align: left; border-bottom: 1px solid rgba(0,0,0,0.08); font-size: 14px; }
+        table th { background-color: rgba(0,0,0,0.03); color: var(--text-color); font-weight: 700; }
+
+        /* Status Badges */
+        .badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; }
+        .badge-initiated { background-color: #fef08a; color: #854d0e; }
+        .badge-verified { background-color: #bae6fd; color: #0369a1; }
+        .badge-approved { background-color: #dcfce7; color: #15803d; }
+        .badge-rejected { background-color: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body class="emerald">
+
+    <!-- Sehemu ya Maandishi Yanayopitapita -->
+    <div class="marquee-container">
+        <marquee behavior="scroll" direction="left" scrollamount="6">
+            ✨ Karibu kwenye Mfumo Rasmi wa Utawala na Fedha wa Raudhwat Al-Atfal – Kazi Na Utumishi Uliotukuka kwa Ajili ya Ustawi na Maendeleo ✨
+        </marquee>
+    </div>
+
+<div class="container">
+
+    <!-- BAR YA JUU: KIONGOZI HALISI NA THEME SWITCHER -->
+    <div class="top-bar">
+        <div>
+            <strong style="font-size: 16px;">Mtumiaji:</strong> 
+            <span id="current-user-display" style="color: #ffd700; font-size: 16px; font-weight: 700;">Inapakia...</span>
+        </div>
+        <div class="top-bar-right">
+            <div>
+                <label style="margin-right: 6px; font-size: 13px;">Badili Theme:</label>
+                <select id="themeSelect" onchange="changeTheme(this.value)">
+                    <option value="emerald">🌿 Emerald</option>
+                    <option value="royal">👑 Royal Blue</option>
+                    <option value="sunset">🌅 Sunset Gold</option>
+                    <option value="slate">🌙 Dark Slate</option>
+                    <option value="ruby">💎 Ruby Red</option>
+                </select>
+            </div>
+            <!-- Kitufe cha Logout kinachofanya kazi kwa ufasaha -->
+            <button class="btn-logout" onclick="handleLogout()">🚪 Toka (Logout)</button>
+        </div>
+    </div>
+
+    <!-- 1. DASHBOARD YA KATIBU (HATUA YA 1: KUANZISHA OMBI) -->
+    <div id="katibu-view" class="card" style="display: none;">
+        <h3>✍️ Ombi Jipya la Matumizi (Hatua ya 1: Katibu)</h3>
+        <form id="withdraw-form">
+            <div class="form-group">
+                <label>Chagua Mradi</label>
+                <select id="mradi-select" required>
+                    <option value="">-- Pakia Miradi... --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Kiasi cha Pesa (TZS)</label>
+                <input type="number" id="withdraw-amount" placeholder="Mfano: 300000" min="1" required>
+            </div>
+            <div class="form-group">
+                <label>Sababu / Maelezo ya Matumizi</label>
+                <textarea id="withdraw-reason" rows="4" placeholder="Eleza kwa ufupi matumizi ya fedha hizi..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Tuma Ombi kwa Mwekahazina ➔</button>
+        </form>
+    </div>
+
+    <!-- 2. DASHBOARD YA MWEKAHAZINA & MWENYEKITI (HATUA YA 2 & 3) -->
+    <div id="approval-view" class="card" style="display: none;">
+        <h3 id="approval-title">📋 Maombi Yanayosubiri</h3>
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tarehe</th>
+                        <th>Mradi</th>
+                        <th>Kiasi (TZS)</th>
+                        <th>Sababu</th>
+                        <th>Aliyeanzisha</th>
+                        <th>Hali (Status)</th>
+                        <th>Hatua (Action)</th>
+                    </tr>
+                </thead>
+                <tbody id="requests-tbody">
+                    <!-- Data itaingizwa hapa kwa njia ya JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const API_URL = "http://localhost:5000/api";
+    
+    // 1. ULINZI WA UKURASA (SECURITY GUARD): Kuzuia wasiohusika kabla ya kila kitu
+    document.addEventListener("DOMContentLoaded", () => {
+        const userRole = localStorage.getItem('role') || (JSON.parse(localStorage.getItem('raudhwat_user')) || {}).role;
+        const token = localStorage.getItem('token');
+        
+        // Orodha kamili ya viongozi wote wakuu wanaoruhusiwa kufikia dashibodi
+        const restrictedRoles = [
+            'KATIBU', 'KATIBU_ADMIN', 'KATIBATI', 
+            'MWEKAHAZINA', 'MWEKAHAZINA_ADMIN', 
+            'MWENYEKITI', 'AMIRI', 'AMIRATI', 'AMIRI_HABARI'
+        ];
+
+        if (!token || !restrictedRoles.includes(userRole)) {
+            alert("Samahani mheshimiwa, eneo hili ni maalum kwa ajili ya viongozi wakuu pekee!");
+            window.location.href = "/"; // Kurudi ukurasa mkuu/login
+            return;
+        }
+
+        // Taarifa za mtumiaji aliyelogin
+        let currentUser = JSON.parse(localStorage.getItem('raudhwat_user')) || {
+            _id: "user_default_001",
+            name: "Kiongozi Mkuu",
+            role: userRole
+        };
+
+        const savedTheme = localStorage.getItem('raudhwat_theme') || 'emerald';
+        document.body.className = savedTheme;
+        document.getElementById('themeSelect').value = savedTheme;
+        
+        // Onyesha jina na cheo cha kiongozi halisi
+        document.getElementById("current-user-display").innerText = `${currentUser.name} (${currentUser.role})`;
+        
+        renderDashboard(currentUser);
+    });
+
+    function changeTheme(themeName) {
+        document.body.className = themeName;
+        localStorage.setItem('raudhwat_theme', themeName);
+    }
+
+    // Kazi ya Logout inayofuta data zote za kikao na kumrudisha kiongozi kwenye ukurasa wa Login
+    function handleLogout() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        localStorage.removeItem("raudhwat_user");
+        localStorage.removeItem("raudhwat_theme");
+        
+        // Inamrudisha moja kwa moja kwenye ukurasa wa mwanzo au login
+        window.location.href = "/"; 
+    }
+
+    function renderDashboard(currentUser) {
+        const katibuView = document.getElementById("katibu-view");
+        const approvalView = document.getElementById("approval-view");
+
+        katibuView.style.display = "none";
+        approvalView.style.display = "none";
+
+        // Ufafanuzi kwa kila cheo ili kiongozi aone kile kinachomhusu kikamilifu
+        if (["KATIBU", "KATIBU_ADMIN", "KATIBATI"].includes(currentUser.role)) {
+            katibuView.style.display = "block";
+            loadMiradiDropdown();
+        } 
+        else if (["MWEKAHAZINA", "MWEKAHAZINA_ADMIN"].includes(currentUser.role)) {
+            approvalView.style.display = "block";
+            document.getElementById("approval-title").innerText = "📋 Hatua ya 2: Uhakiki wa Mwekahazina (Pending Verification)";
+            loadPendingRequests("MWEKAHAZINA", currentUser);
+        } 
+        else if (["MWENYEKITI", "AMIRI", "AMIRATI"].includes(currentUser.role)) {
+            approvalView.style.display = "block";
+            document.getElementById("approval-title").innerText = "📋 Hatua ya 3: Idhini ya Uongozi Mkuu (Pending Approval)";
+            loadPendingRequests("MWENYEKITI", currentUser);
+        } 
+        else if (currentUser.role === "AMIRI_HABARI") {
+            // Sehemu maalum au ujumbe kwa Amiri Habari
+            approvalView.style.display = "block";
+            document.getElementById("approval-title").innerText = "📢 Dashibodi ya Habari na Matangazo";
+            document.getElementById("requests-tbody").innerHTML = `<tr><td colspan="7" style="text-align:center; font-weight:600; color:#0b6623;">Karibu kwenye Dashibodi ya Habari na Mawasiliano, Mheshimiwa Amiri Habari.</td></tr>`;
+        } 
+        else {
+            katibuView.style.display = "block";
+            loadMiradiDropdown();
+        }
+    }
+
+    // Kusikiliza form ya ombi la Katibu
+    document.addEventListener("submit", async (e) => {
+        if (e.target && e.target.id === "withdraw-form") {
+            e.preventDefault();
+            let currentUser = JSON.parse(localStorage.getItem('raudhwat_user')) || {};
+            
+            const payload = {
+                mradi_id: document.getElementById("mradi-select").value,
+                amount: document.getElementById("withdraw-amount").value,
+                reason: document.getElementById("withdraw-reason").value,
+                user_id: currentUser._id || "user_default_001"
+            };
+
+            try {
+                const res = await fetch(`${API_URL}/withdraw/initiate`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    alert("✅ " + data.message);
+                    document.getElementById("withdraw-form").reset();
+                } else {
+                    alert("❌ Imefeli: " + (data.error || data.message));
+                }
+            } catch (err) {
+                alert("❌ Imeshindwa kuunganisha na Server!");
+            }
+        }
+    });
+
+    async function loadPendingRequests(role, currentUser) {
+        const tbody = document.getElementById("requests-tbody");
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Inapakia maombi...</td></tr>`;
+
+        try {
+            const res = await fetch(`${API_URL}/withdraw/list/${role}`);
+            const result = await res.json();
+            tbody.innerHTML = "";
+
+            if (!result.data || result.data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; opacity: 0.7;">Hakuna maombi yanayosubiri hatua yako kwa sasa.</td></tr>`;
+                return;
+            }
+
+            result.data.forEach(req => {
+                const tr = document.createElement("tr");
+                
+                let badgeClass = "badge-initiated";
+                if (req.status === "VERIFIED") badgeClass = "badge-verified";
+                if (req.status === "APPROVED") badgeClass = "badge-approved";
+                if (req.status.includes("REJECTED")) badgeClass = "badge-rejected";
+
+                tr.innerHTML = `
+                    <td>${new Date(req.createdAt).toLocaleDateString()}</td>
+                    <td><strong>${req.mradi_id ? (req.mradi_id.name || req.mradi_id.jina) : 'N/A'}</strong></td>
+                    <td><strong>${Number(req.amount).toLocaleString()}</strong></td>
+                    <td>${req.reason}</td>
+                    <td>${req.initiated_by ? req.initiated_by.name : 'Katibu'}</td>
+                    <td><span class="badge ${badgeClass}">${req.status}</span></td>
+                    <td>
+                        <button class="btn btn-success" onclick="processRequest('${req._id}', '${role}', 'APPROVE')">
+                            ${role === 'MWEKAHAZINA' ? 'Thibitisha' : 'Idhinisha'}
+                        </button>
+                        <button class="btn btn-danger" onclick="processRequest('${req._id}', '${role}', 'REJECT')">Kataa</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        } catch (err) {
+            tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: #dc2626;">Imeshindwa kupakia data kutoka kwenye server.</td></tr>`;
+        }
+    }
+
+    async function processRequest(requestId, role, actionType) {
+        const endpoint = role === "MWEKAHAZINA" ? "/withdraw/verify" : "/withdraw/approve";
+        let currentUser = JSON.parse(localStorage.getItem('raudhwat_user')) || {};
+        
+        const payload = {
+            request_id: requestId,
+            user_id: currentUser._id || "user_default_001",
+            action: actionType
+        };
+
+        try {
+            const res = await fetch(`${API_URL}${endpoint}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            
+            const data = await res.json();
+            
+            if (data.success) {
+                alert("✅ " + data.message);
+                loadPendingRequests(role, currentUser);
+            } else {
+                alert("❌ Imefeli: " + data.message);
+            }
+        } catch (err) {
+            alert("❌ Tatizo la mtandao au Server imefeli!");
+        }
+    }
+
+    async function loadMiradiDropdown() {
+        const select = document.getElementById("mradi-select");
+        if (!select) return;
+        try {
+            const res = await fetch(`${API_URL}/mradi`);
+            const miradi = await res.json();
+            
+            if (!miradi || miradi.length === 0) {
+                select.innerHTML = `<option value="">Hakuna miradi iliyopatikana</option>`;
+                return;
+            }
+
+            select.innerHTML = `<option value="">-- Chagua Mradi --</option>` + 
+                miradi.map(m => `<option value="${m._id}">${m.name || m.jina}</option>`).join("");
+        } catch (err) {
+            select.innerHTML = `<option value="">Imeshindwa kupakia miradi</option>`;
+        }
+    }
+</script>
+
+</body>
+</html>

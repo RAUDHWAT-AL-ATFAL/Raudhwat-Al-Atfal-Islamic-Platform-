@@ -1,4 +1,23 @@
-# Logs
+# Dependencies (Zisipushwe GitHub)
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Production / Build Folders
+dist/
+dist-ssr/
+build/
+frontend/dist/
+
+# Environment Variables (Siri za API keys na Passwords)
+.env
+.env.local
+.env.*.local
+*.env
+backend/.env
+frontend/.env
+
+# Logs na Temp Files
 logs
 *.log
 npm-debug.log*
@@ -12,11 +31,12 @@ dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# Editor & OS Files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj

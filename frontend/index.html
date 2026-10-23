@@ -1,13 +1,97 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="sw" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Raudhwat Al-Atfal Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
+    <!-- Kichwa na Maelezo ya Mfumo -->
+    <title>Raudhwat Al-Atfal - Donation & AI Platform</title>
+    <meta name="description" content="Mfumo wa Kusaidia Watoto Yatima, Wana-Raudhwat Al-Atfal, na Umah wa Kiislamu kupata Elimu Sahihi ya Dini na Ufadhili." />
+
+    <!-- 1. PWA, COLOR SCHEME & SPLASH COLOR CONFIGURATION -->
+    <meta name="theme-color" content="#064E3B" />
+    <meta name="background-color" content="#064E3B" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Raudhwat Atfal" />
+
+    <!-- 2. LOGO, FAVICON NA ICONS ZA PWA / SPLASH SCREEN -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon-192.png" />
+
+    <!-- Apple Splash Screen Link for iOS Devices -->
+    <link rel="apple-touch-startup-image" href="/RaudhwatSplash.png" />
+
+    <!-- 3. GOOGLE FONTS: Plus Jakarta Sans (Kiswahili/UI) & Amiri (Aya za Quran & Kiarabu) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- 4. INITIAL INITIALIZATION STYLES (Inayokinga Mfumo Kuonyesha Skrini Mweupe Usiku au Wakati Unaload) -->
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #064E3B; /* Background ya kijani kibichi ya Kiislamu */
+        color: #1f2937;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+
+      /* Kabla React na SplashScreen.jsx havijachukua nafasi */
+      #root:empty {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        background-color: #064E3B;
+      }
+
+      #root:empty::before {
+        content: "";
+        width: 120px;
+        height: 120px;
+        background-image: url('/icon-192.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 50%;
+        border: 3px solid #F59E0B;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        animation: initialPulse 1.2s ease-in-out infinite alternate;
+      }
+
+      #root:empty::after {
+        content: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ\nAnaanza Raudhwat Al-Atfal...";
+        white-space: pre-line;
+        text-align: center;
+        color: #FBBF24;
+        font-family: 'Amiri', 'Plus Jakarta Sans', serif;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+
+      @keyframes initialPulse {
+        0% { transform: scale(0.9); opacity: 0.8; }
+        100% { transform: scale(1.05); opacity: 1; }
+      }
+    </style>
   </head>
   <body>
+    <!-- Sehemu Ambapo React App Inajichomeka (Root) -->
     <div id="root"></div>
+
+    <!-- Script Kuu ya Vite / React Entry Point -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

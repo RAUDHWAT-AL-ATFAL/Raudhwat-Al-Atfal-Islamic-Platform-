@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ongeza Kiongozi - Amiri Dashboard</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
+        .card h2 { text-align: center; margin-bottom: 20px; color: #0f172a; font-size: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; color: #475569; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; outline: none; background: #fff; }
+        .form-group input:focus, .form-group select:focus { border-color: #0284c7; }
+        .btn-submit { width: 100%; padding: 10px; background-color: #0284c7; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 15px; }
+        .btn-submit:hover { background-color: #0369a1; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>👥 Sajili Kiongozi Mpya</h2>
+    <form id="registerForm">
+        <div class="form-group">
+            <label>Jina Kamili (Name)</label>
+            <input type="text" id="name" placeholder="Jina la kiongozi" required>
+        </div>
+        <div class="form-group">
+            <label>Barua Pepe (Email)</label>
+            <input type="email" id="email" placeholder="email@domain.com" required>
+        </div>
+        <div class="form-group">
+            <label>Neno la Siri (Password)</label>
+            <input type="password" id="password" placeholder="******" required>
+        </div>
+        <div class="form-group">
+            <label>Namba ya Simu (Phone)</label>
+            <input type="text" id="phone" placeholder="07xxxxxxxx" required>
+        </div>
+        <div class="form-group">
+            <label>Chagua Cheo (Role)</label>
+            <select id="role" required>
+                <option value="">-- Chagua Cheo --</option>
+                <option value="AMIRI">Amiri Mkuu</option>
+                <option value="AMIRATI">Amirati</option>
+                <option value="KATIBU_ADMIN">Katibu</option>
+                <option value="KATIBATI">Katibati</option>
+                <option value="MWEKAHAZINA_ADMIN">Mwekahazina</option>
+                <option value="AMIRI_HABARI">Amiri Habari</option>
+            </select>
+        </div>
+        <button type="submit" class="btn-submit">Sajili Kiongozi</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const phone = document.getElementById("phone").value;
+        const role = document.getElementById("role").value;
+
+        // Pata Token ya Amiri/Amirati iliyohifadhiwa wakati wa Login
+        const token = localStorage.getItem("userToken");
+
+        if (!token) {
+            alert("⛔ Huna ruhusa! Tafadhali ingia kama Amiri au Amirati kwanza.");
+            window.location.href = "/login.html";
+            return;
+        }
+
+        try {
+            const res = await fetch("http://localhost:5000/api/admin/register", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ name, email, password, phone, role })
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                alert("✅ " + data.message);
+                document.getElementById("registerForm").reset();
+            } else {
+                alert("❌ " + (data.message || "Imeshindwa kusajili!"));
+            }
+        } catch (err) {
+            alert("❌ Imeshindwa kuunganisha na Server!");
+        }
+    });
+</script>
+
+</body>
+</html>

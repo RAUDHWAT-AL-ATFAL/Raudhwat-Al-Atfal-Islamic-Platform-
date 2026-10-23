@@ -1,0 +1,107 @@
+.splash-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #064E3B;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.splash-stage-one {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: zoomInPulse 1.2s ease-in-out infinite alternate;
+}
+
+.splash-logo-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 3px solid #F59E0B;
+}
+
+.splash-logo-title {
+  color: #ffffff;
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.splash-stage-two {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.splash-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.splash-progress-card {
+  position: absolute;
+  bottom: 40px;
+  width: 80%;
+  text-align: center;
+  background-color: rgba(6, 78, 59, 0.88);
+  padding: 12px 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  border: 1px solid #F59E0B;
+}
+
+.splash-progress-track {
+  width: 100%;
+  height: 12px;
+  background-color: #065F46;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #FBBF24;
+  margin-bottom: 8px;
+}
+
+.splash-progress-fill {
+  height: 100%;
+  background-color: #FBBF24;
+  transition: width 0.1s linear;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #FBBF24;
+}
+
+.splash-progress-text {
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.splash-progress-subtext {
+  color: #FBBF24;
+  font-size: 11px;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+@keyframes zoomInPulse {
+  0% { transform: scale(0.92); opacity: 0.8; }
+  100% { transform: scale(1.05); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
