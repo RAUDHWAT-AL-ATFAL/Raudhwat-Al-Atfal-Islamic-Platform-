@@ -1,107 +1,248 @@
+/* ============================================================
+   RAUDHWAT AL-ATFAL - ULTRA-PROFESSIONAL ISLAMIC SPLASH STYLES
+   ============================================================ */
+
+/* Import Font za Kiarabu na Muundo wa Kileo */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  --primary-emerald: #065f46;
+  --secondary-teal: #0f766e;
+  --gold-accent: #d97706;
+  --gold-light: #fef08a;
+  --bg-dark-overlay: rgba(4, 47, 36, 0.92);
+  --glass-bg: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(217, 119, 6, 0.35);
+}
+
+/* --- MAIN WRAPPER --- */
 .splash-wrapper {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #064E3B;
-  z-index: 99999;
+  background: radial-gradient(circle at center, #065f46 0%, #022c22 100%);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  z-index: 999999;
   overflow: hidden;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
+/* ============================================================
+   STAGE 1: LOGO INAYODONDOKA KWA MADOIDO
+   ============================================================ */
 .splash-stage-one {
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: zoomInPulse 1.2s ease-in-out infinite alternate;
+  justify-content: center;
+  text-align: center;
+  animation: dropIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 .splash-logo-img {
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  border: 3px solid #F59E0B;
+  object-fit: cover;
+  border: 4px solid var(--gold-accent);
+  box-shadow: 0 0 35px rgba(217, 119, 6, 0.5),
+              0 10px 25px rgba(0, 0, 0, 0.5);
+  animation: floatPulse 3s infinite ease-in-out;
 }
 
 .splash-logo-title {
   color: #ffffff;
+  font-size: 28px;
+  font-weight: 700;
   margin-top: 20px;
-  font-size: 22px;
-  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 10px rgba(254, 240, 138, 0.3);
+  animation: slideTextUp 1s ease-out 0.3s backwards;
 }
 
+/* ============================================================
+   STAGE 2: BANNER YENYE WATOTO, AYA & PROGRESS BAR
+   ============================================================ */
 .splash-stage-two {
   position: relative;
   width: 100%;
   height: 100%;
-  max-width: 500px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: center;
+  padding-bottom: 30px;
+  background-size: cover;
+  background-position: center;
   animation: fadeIn 0.8s ease-in-out;
 }
 
+/* Background Image ya Banner ya Watoto */
 .splash-banner-img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+  z-index: 1;
+  filter: brightness(0.92) contrast(1.05);
 }
 
-.splash-progress-card {
+/* Shading ya Chini ili Kadi ya Progress Isomeke Vizuri */
+.splash-stage-two::after {
+  content: '';
   position: absolute;
-  bottom: 40px;
-  width: 80%;
-  text-align: center;
-  background-color: rgba(6, 78, 59, 0.88);
-  padding: 12px 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-  border: 1px solid #F59E0B;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 45%;
+  background: linear-gradient(to top, rgba(2, 44, 34, 0.95) 0%, rgba(2, 44, 34, 0) 100%);
+  z-index: 2;
 }
 
+/* KADI YA PROGRESS BAR (GLASSMORPHISM STYLE) */
+.splash-progress-card {
+  position: relative;
+  z-index: 3;
+  width: 88%;
+  max-width: 420px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  padding: 18px 24px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45),
+              inset 0 0 15px rgba(255, 255, 255, 0.1);
+  text-align: center;
+  animation: slideUpCard 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Mstari wa Nje wa Progress Bar */
 .splash-progress-track {
   width: 100%;
   height: 12px;
-  background-color: #065F46;
-  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
   overflow: hidden;
-  border: 1px solid #FBBF24;
-  margin-bottom: 8px;
+  border: 1px solid rgba(217, 119, 6, 0.4);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+  margin-bottom: 12px;
 }
 
+/* Mstari wa Kijani na Dhahabu Unaojaza (Fill) */
 .splash-progress-fill {
   height: 100%;
-  background-color: #FBBF24;
-  transition: width 0.1s linear;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #FBBF24;
+  background: linear-gradient(90deg, #10b981 0%, #f59e0b 50%, #34d399 100%);
+  background-size: 200% 100%;
+  border-radius: 20px;
+  transition: width 0.15s ease-out;
+  animation: shimmerGradient 2s linear infinite;
+  box-shadow: 0 0 12px rgba(52, 211, 153, 0.8);
 }
 
+/* Maandishi ya % na Pamoja Tunaweza */
 .splash-progress-text {
   color: #ffffff;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
 .splash-progress-subtext {
-  color: #FBBF24;
-  font-size: 11px;
+  color: var(--gold-light);
+  font-size: 12px;
   font-style: italic;
-  margin-top: 2px;
+  margin-top: 4px;
+  opacity: 0.95;
+  letter-spacing: 1px;
 }
 
-@keyframes zoomInPulse {
-  0% { transform: scale(0.92); opacity: 0.8; }
-  100% { transform: scale(1.05); opacity: 1; }
+/* ============================================================
+   ANIMATIONS & EFFECTS
+   ============================================================ */
+
+/* Kudondoka kwa Logo (Drop In) */
+@keyframes dropIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-80px) scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Inapanda kutoka Chini (Slide Up Card) */
+@keyframes slideUpCard {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideTextUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Kuweka Mwanga Unao-pulse (Float Pulse) */
+@keyframes floatPulse {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 0 35px rgba(217, 119, 6, 0.5);
+  }
+  50% {
+    transform: translateY(-8px);
+    box-shadow: 0 0 50px rgba(254, 240, 138, 0.8);
+  }
+}
+
+/* Shimmer na Mwendo wa Progress Bar */
+@keyframes shimmerGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive Kwa Ajili ya Simu Ndogo */
+@media (max-width: 480px) {
+  .splash-logo-img {
+    width: 130px;
+    height: 130px;
+  }
+  .splash-logo-title {
+    font-size: 22px;
+  }
+  .splash-progress-card {
+    width: 92%;
+    padding: 14px 18px;
+  }
 }

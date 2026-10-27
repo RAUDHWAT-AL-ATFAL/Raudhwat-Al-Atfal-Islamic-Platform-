@@ -20,7 +20,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/registerPage";
 
 // --- IMPORT YA MSAIDIZI WA RAUDHWAT AL-ATFAL (AI ASSISTANT) ---
-import AIAssistancepage from "./pages/AIAssistancePage";
+import AIAssistancepage from "./pages/AIAssistancepage";
 
 // --- 1. PWA INSTALL HOOK ---
 export function usePWAInstall() {
@@ -94,8 +94,17 @@ function GlobalBackButton() {
 
 // --- 3. MAIN APP COMPONENT ---
 export default function App() {
-  // A. Multi-Stage Professional Splash Screen State
-  const [showSplash, setShowSplash] = useState(true);
+  // A. Multi-Stage Flow: "logo" -> "splash" -> "main"
+  const [currentStep, setCurrentStep] = useState("logo");
+
+  // Timer ya Logo kuonekana kwa sekunde 2 kisha kuhamia Splash ya Watoto
+  useEffect(() => {
+    const logoTimer = setTimeout(() => {
+      setCurrentStep("splash");
+    }, 2000);
+
+    return () => clearTimeout(logoTimer);
+  }, []);
 
   // B. PWA Install State & Hook
   const { isInstallable, handleInstallClick } = usePWAInstall();
@@ -171,12 +180,35 @@ export default function App() {
 
   const isAdmin = user && adminRoles.includes(user.role);
 
-  // --- 1. ONYESHA SPLASH SCREEN YA PROFESSIONAL KWANZA ---
-  if (showSplash) {
-    return <SplashScreen onFinish={() => setShowSplash(false)} />;
+  // --- 1. HATUA YA KWANZA: LOGO YA MFUMO ---
+  if (currentStep === "logo") {
+    return (
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        backgroundColor: "#065f46",
+        color: "#ffffff"
+      }}>
+        <img 
+          src="/icon-192.png" 
+          alt="Raudhwat Logo" 
+          style={{ width: "110px", height: "110px", borderRadius: "24px", marginBottom: "20px", boxShadow: "0 6px 20px rgba(0,0,0,0.4)" }} 
+        />
+        <h2 style={{ fontFamily: "sans-serif", fontSize: "24px", margin: 0, fontWeight: "bold" }}>Raudhwat Al-Atfal</h2>
+        <p style={{ fontSize: "14px", opacity: 0.9, marginTop: "8px" }}>Bismillahi Rahmani Rahim</p>
+      </div>
+    );
   }
 
-  // --- 2. MFUMO WENYEWE UKIFUNGUKA BADA YA SPLASH SCREEN ---
+  // --- 2. HATUA YA PILI: SPLASH SCREEN YA WATOTO ---
+  if (currentStep === "splash") {
+    return <SplashScreen onFinish={() => setCurrentStep("main")} />;
+  }
+
+  // --- 3. HATUA YA TATU: MFUMO WENYEWE UNAPOFUNGUKA NA KUONYESHA MAUDHUI ---
   return (
     <BrowserRouter>
       {user && <Navbar user={user} onLogout={handleLogout} />}
@@ -236,7 +268,7 @@ export default function App() {
         </div>
       )}
 
-      {/* B. BUTTON YA ZIADA (FLOATING INSTALL BUTTON) - Kama Banner Imeanzwa Fungwa au Kuchelewa */}
+      {/* B. BUTTON YA ZIADA (FLOATING INSTALL BUTTON) */}
       {isInstallable && !showInstallBanner && (
         <button
           onClick={handleInstallClick}
