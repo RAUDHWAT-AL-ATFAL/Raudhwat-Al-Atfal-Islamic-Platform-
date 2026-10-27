@@ -1,5 +1,4 @@
 const Mradi = require("../models/mradiModel");
-
 // ===============================
 // KUONGEZA MRADI
 // ===============================
@@ -158,7 +157,7 @@ const pataMradiKwaId = async (req, res) => {
                 )
             }
         });
-
+       
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -166,7 +165,6 @@ const pataMradiKwaId = async (req, res) => {
         });
     }
 };
-
 
 // ===============================
 // EXPORT

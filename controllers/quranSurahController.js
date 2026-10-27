@@ -1,13 +1,9 @@
 const QuranSurah = require("../models/quranSurahModel");
-
 // ==========================================
 // GET ALL SURAHS
 // ==========================================
-
 const getAllSurahInformation = async (req, res) => {
-
 try {
-
     const surahs =
         await QuranSurah.find({
             isActive: true
@@ -50,7 +46,6 @@ try {
 }
 
 };
-
 // ==========================================
 // GET ONE SURAH INFORMATION
 // ==========================================
@@ -103,8 +98,7 @@ try {
         });
 
     }
-
-
+    
     res.status(200).json({
 
         success: true,
@@ -179,7 +173,6 @@ try {
         useAdminIntroduction
 
     } = req.body;
-
 
     const surah =
         await QuranSurah.findOne({
@@ -379,5 +372,4 @@ getSurahInformation,
 updateSurahIntroduction,
 
 resetSurahIntroduction
-
 };
